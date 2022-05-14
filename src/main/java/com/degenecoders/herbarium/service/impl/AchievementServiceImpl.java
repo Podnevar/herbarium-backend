@@ -15,19 +15,16 @@ public class AchievementServiceImpl implements AchievementService {
 
     @Inject
     private AchievementRepository achievementRepository;
-
     private static final Logger LOG = Logger.getLogger(Plant.class);
 
     @Override
     public List<Achievement> findAllByAchievement(String Id) {
-        var list = achievementRepository.findAllByAchievement(Id);
-        return list;
+        return achievementRepository.findAllByAchievement(Id);
     }
 
     @Override
     public List<Achievement> findAllAchievements() {
-        var list = achievementRepository.findAllAchievements();
-        return list;
+        return achievementRepository.findAllAchievements();
     }
 
     @Override
