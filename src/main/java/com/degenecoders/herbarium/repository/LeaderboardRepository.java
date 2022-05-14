@@ -47,7 +47,7 @@ public class LeaderboardRepository {
 
     public List<Leaderboard> findAllLeaderboards() {
         List<Leaderboard> achievements = new ArrayList<>();
-        MongoCursor<Document> cursor = getLeaderboardsCollection().find().iterator();
+        MongoCursor<Document> cursor = getLeaderboardsCollection().find().limit(5).iterator();
 
         try {
             while (cursor.hasNext()) {
