@@ -33,6 +33,7 @@ public class AchievementRepository {
                         .name(document.getString("name"))
                         .description(document.getString("description"))
                         .image(document.getString("image"))
+                        .points(document.getString("points"))
                         .status(document.getBoolean("status"))
                         .build();
                 achievements.add(achievement);
@@ -57,6 +58,7 @@ public class AchievementRepository {
                         .name(document.getString("name"))
                         .description(document.getString("description"))
                         .image(document.getString("image"))
+                        .points(document.getString("points"))
                         .status(document.getBoolean("status"))
                         .build();
                 achievements.add(achievement);
@@ -74,6 +76,7 @@ public class AchievementRepository {
                 .append("name", achievement.getName())
                 .append("description", achievement.getDescription())
                 .append("image", achievement.getImage())
+                .append("points", achievement.getPoints())
                 .append("status", achievement.getStatus());
         getAchievementsCollection().insertOne(document);
     }
@@ -84,6 +87,7 @@ public class AchievementRepository {
                 .append("name", achievement.getName())
                 .append("description", achievement.getDescription())
                 .append("image", achievement.getImage())
+                .append("points", achievement.getPoints())
                 .append("status", achievement.getStatus());
         getAchievementsCollection().updateOne(new Document("_id", achievement.getId()), new Document("$set", document));
     }

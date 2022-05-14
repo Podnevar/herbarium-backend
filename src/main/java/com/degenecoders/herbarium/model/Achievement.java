@@ -12,16 +12,18 @@ public class Achievement {
     private String name;
     private String description;
     private String image;
+    private String points;
     private Boolean status;
 
     public Achievement() {
     }
 
-    public Achievement(String id, String name, String description, String image, Boolean status) {
+    public Achievement(String id, String name, String description, String image, String points, Boolean status) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.image = image;
+        this.points = points;
         this.status = status;
     }
 
@@ -39,6 +41,14 @@ public class Achievement {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
     }
 
     public String getDescription() {
