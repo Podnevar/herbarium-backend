@@ -5,6 +5,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.ws.rs.core.MultivaluedMap;
 import java.io.File;
@@ -20,7 +21,8 @@ import java.util.Map;
 @Singleton
 public class FileUploadService {
 
-    String UPLOAD_DIR = "C:\\Projects";
+    @Inject
+    private AmazonS3StorageServiceImpl amazonStorageService;
 
     public String uploadFile(MultipartFormDataInput input) {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
@@ -34,7 +36,10 @@ public class FileUploadService {
                 fileName = getFileName(header);
                 fileNames.add(fileName);
                 InputStream inputStream = inputPart.getBody(InputStream.class, null);
-                writeFile(inputStream,fileName);
+                byte[] bytes = IOUtils.toByteArray(inputStream);
+                amazonStorageService.store(fileName, bytes);
+                //writeFile(inputStream,fileName);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -42,15 +47,15 @@ public class FileUploadService {
         return "Files Successfully Uploaded";
     }
 
-    private void writeFile(InputStream inputStream,String fileName)
-            throws IOException {
-        byte[] bytes = IOUtils.toByteArray(inputStream);
-        File customDir = new File(UPLOAD_DIR);
-        fileName = customDir.getAbsolutePath() +
-                File.separator + fileName;
-        Files.write(Paths.get(fileName), bytes,
-                StandardOpenOption.CREATE_NEW);
-    }
+//    private void writeFile(InputStream inputStream, String fileName)
+//            throws IOException {
+//        byte[] bytes = IOUtils.toByteArray(inputStream);
+//        File customDir = new File(UPLOAD_DIR);
+//        fileName = customDir.getAbsolutePath() +
+//                File.separator + fileName;
+//        Files.write(Paths.get(fileName), bytes,
+//                StandardOpenOption.CREATE_NEW);
+//    }
 
     private String getFileName(MultivaluedMap<String, String> header) {
         String[] contentDisposition = header.
