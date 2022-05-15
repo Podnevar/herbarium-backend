@@ -43,11 +43,11 @@ public class CollectionResource {
     }
 
     @POST
-    @Path("/upload")
+    @Path("/upload/user/{username}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response upload(@MultipartForm MultipartFormDataInput input) {
-        fileUploadService.upload(input, "randomUser1");
+    public Response upload(@MultipartForm MultipartFormDataInput input, @PathParam("username") String username) {
+        fileUploadService.upload(input, username);
         return Response.ok().status(201).build();
     }
 }
