@@ -9,8 +9,10 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 @Path("/collection")
 @Produces(MediaType.APPLICATION_JSON)
@@ -21,6 +23,9 @@ public class CollectionResource {
 
     @Inject
     private FileUploadService fileUploadService;
+
+    @Context
+    private UriInfo uriInfo;
 
     @POST
     public Response add(Plant plant) {
@@ -39,7 +44,6 @@ public class CollectionResource {
                 .latitude(0)
                 .longitude(0)
                 .userId("test")
-                //.rarity(document.getString(RarityEnum.RARE))
                 .build();
         return plant;
     }
@@ -49,7 +53,7 @@ public class CollectionResource {
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
     public Response fileUpload(@MultipartForm MultipartFormDataInput input) {
-        return Response.ok().
-                entity(fileUploadService.uploadFile(input)).build();
+        fileUploadService.uploadFile(input);
+        return Response.ok().build();
     }
 }
