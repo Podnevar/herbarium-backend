@@ -1,8 +1,10 @@
 package com.degenecoders.herbarium.service.impl;
 
 import com.degenecoders.herbarium.client.PlantidServiceClient;
+import com.degenecoders.herbarium.model.Plant;
 import com.degenecoders.herbarium.model.PlantidRequest;
 import com.degenecoders.herbarium.model.PlantidResponse;
+import com.degenecoders.herbarium.repository.PlantRepository;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -25,10 +27,13 @@ public class FileUploadService {
     private AmazonS3StorageServiceImpl amazonStorageService;
 
     @Inject
+    private PlantRepository plantRepository;
+
+    @Inject
     @RestClient
     private PlantidServiceClient plantidServiceClient;
 
-    public void uploadFile(MultipartFormDataInput input) {
+    public void upload(MultipartFormDataInput input, String userId) {
         List<String> base64Images = new ArrayList();
         List<byte[]> images = new ArrayList<>();
         List<String> modifiers = new ArrayList<>();
@@ -77,6 +82,13 @@ public class FileUploadService {
         PlantidResponse plantidResponse = response.readEntity(PlantidResponse.class);
 
         if (response.getStatus() == 200 && plantidResponse.getSuggestions().get(0) != null) {
+            Plant plant = Plant.builder()
+                    .name(plantidResponse.getSuggestions().get(0).getPlantName())
+                    .description(plantidResponse.getSuggestions().get(0).getPlantDetails().getWikiDescription().getEn().getValue())
+                    .filepath(fileName)
+                    .userId(userId)
+                    .build();
+            plantRepository.add(plant);
             amazonStorageService.store(fileName, images.get(0));
         }
     }

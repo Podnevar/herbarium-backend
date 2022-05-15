@@ -16,17 +16,16 @@ public interface PlantService {
     /**
      * Find specific plant that user has.
      *
-     * @param userId user id
+     * @param userId  user id
      * @param plantId plant id
      * @return single plant
      */
     public Plant findPlantByUser(String userId, String plantId);
 
     /**
+     * Add plant to database
      *
-     *
-      * @param plant
-     * @return
+     * @param plant {@link Plant}
      */
     public void add(Plant plant);
 }

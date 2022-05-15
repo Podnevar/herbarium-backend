@@ -13,6 +13,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.List;
 
 @Path("/collection")
 @Produces(MediaType.APPLICATION_JSON)
@@ -27,33 +28,26 @@ public class CollectionResource {
     @Context
     private UriInfo uriInfo;
 
-    @POST
-    public Response add(Plant plant) {
-        plantService.add(plant);
-        return Response.ok().status(201).build();
+    @GET
+    @Path("/user/{userId}")
+    public Response getAllPlants(@PathParam("userId") String userId) {
+        List<Plant> plants = plantService.findAllByUser(userId);
+        return Response.ok(plants).build();
     }
 
     @GET
-    public Plant getPlant() {
-        Plant plant = Plant.builder()
-                .id("test")
-                .name("test")
-                .description("test")
-                .filepath("test")
-                .latinName("test")
-                .latitude(0)
-                .longitude(0)
-                .userId("test")
-                .build();
-        return plant;
+    @Path("/plant/{plantId}/user/{userId}")
+    public Response getPlant(@PathParam("plantId") String plantId, @PathParam("userId") String userId) {
+        Plant plant = plantService.findPlantByUser(plantId, userId);
+        return Response.ok(plant).build();
     }
 
     @POST
-    @Path("/files")
+    @Path("/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response fileUpload(@MultipartForm MultipartFormDataInput input) {
-        fileUploadService.uploadFile(input);
-        return Response.ok().build();
+    public Response upload(@MultipartForm MultipartFormDataInput input) {
+        fileUploadService.upload(input, "randomUser1");
+        return Response.ok().status(201).build();
     }
 }
