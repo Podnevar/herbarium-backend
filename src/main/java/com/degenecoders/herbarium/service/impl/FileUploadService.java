@@ -85,7 +85,7 @@ public class FileUploadService {
             Plant plant = Plant.builder()
                     .name(plantidResponse.getSuggestions().get(0).getPlantName())
                     .description(plantidResponse.getSuggestions().get(0).getPlantDetails().getWikiDescription().getEn().getValue())
-                    .filepath(fileName)
+                    .filepath(plantidResponse.getImages().get(0).getUrl())
                     .userId(userId)
                     .build();
             plantRepository.add(plant);
