@@ -7,100 +7,60 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class Plant {
+    /**
+     * Plant ID.
+     */
     private String id;
+    /**
+     * Plant name.
+     */
     private String name;
+    /**
+     * Plant description.
+     */
     private String description;
+    /**
+     * Filepath of the image on cloud storage.
+     */
     private String filepath;
+    /**
+     * Base64 encoding of image.
+     */
+    private String image;
+    /**
+     * Latin name of the plant.
+     */
     private String latinName;
+    /**
+     * GPS latitude
+     */
     private double latitude;
+    /**
+     * GPS longitude
+     */
     private double longitude;
+    /**
+     * User ID
+     */
     private String userId;
+    /**
+     * Rarity of the plant
+     */
     private RarityEnum rarity;
 
     public Plant() {
     }
 
-    public Plant(String id, String name, String description, String filepath, String latinName, double latitude, double longitude, String userId, RarityEnum rarity) {
+    public Plant(String id, String name, String description, String filepath, String image, String latinName, double latitude, double longitude, String userId, RarityEnum rarity) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.filepath = filepath;
+        this.image = image;
         this.latinName = latinName;
         this.latitude = latitude;
         this.longitude = longitude;
         this.userId = userId;
-        this.rarity = rarity;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getFilepath() {
-        return filepath;
-    }
-
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
-    }
-
-    public String getLatinName() {
-        return latinName;
-    }
-
-    public void setLatinName(String latinName) {
-        this.latinName = latinName;
-    }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public RarityEnum getRarity() {
-        return rarity;
-    }
-
-    public void setRarity(RarityEnum rarity) {
         this.rarity = rarity;
     }
 }
