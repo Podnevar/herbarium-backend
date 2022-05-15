@@ -2,7 +2,6 @@ package com.degenecoders.herbarium.service;
 
 import com.degenecoders.herbarium.model.Plant;
 
-import javax.ws.rs.core.Response;
 import java.util.List;
 
 public interface PlantService {
