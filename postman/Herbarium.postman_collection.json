@@ -1,0 +1,114 @@
+{
+	"info": {
+		"_postman_id": "0f481679-020d-4e9b-bfa4-3d6a7bad014f",
+		"name": "Herbarium",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add plant to collection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "Content-Type",
+						"value": "image/jpeg",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/Rene/Downloads/ljubljana_0_1.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://88.200.36.115:8070/collection/upload/user/admin",
+					"protocol": "http",
+					"host": [
+						"88",
+						"200",
+						"36",
+						"115"
+					],
+					"port": "8070",
+					"path": [
+						"collection",
+						"upload",
+						"user",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user plant by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8070/collection/plant/628074cae1f46654c12f43bd/user/randomUser1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8070",
+					"path": [
+						"collection",
+						"plant",
+						"628074cae1f46654c12f43bd",
+						"user",
+						"randomUser1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all user plants",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8070/collection/user/{userId}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8070",
+					"path": [
+						"collection",
+						"user",
+						"{userId}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
