@@ -25,7 +25,6 @@ public class LeaderboardResource {
     {
         return leaderboardService.findAllByLeaderboard(Id);
     }
-
     @GET
     @Path("/findAll")
     @Produces(MediaType.APPLICATION_JSON)
